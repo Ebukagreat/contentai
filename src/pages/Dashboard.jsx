@@ -147,15 +147,35 @@ export default function Dashboard() {
         )}
 
         {tab === 'settings' && (
-          <div style={S.card}>
-            <h2 style={S.cardTitle}>Account settings</h2>
-            {[['Email', user?.email], ['Plan', isPro ? 'Pro' : 'Free'], ['Credits', isPro ? 'Unlimited' : credits]].map(([label, val]) => (
-              <div key={label} style={S.settingRow}>
-                <span style={{ fontSize:14,color:'#888' }}>{label}</span>
-                <span style={{ fontSize:14,color:'#fff',fontWeight:500 }}>{val}</span>
+          <div style={{ display:'flex', flexDirection:'column', gap:'1rem' }}>
+            <div style={S.card}>
+              <h2 style={S.cardTitle}>Account</h2>
+              {[['Email', user?.email], ['Plan', isPro ? 'Pro' : 'Free'], ['Credits', isPro ? 'Unlimited' : credits]].map(([label, val]) => (
+                <div key={label} style={S.settingRow}>
+                  <span style={{ fontSize:14,color:'#888' }}>{label}</span>
+                  <span style={{ fontSize:14,color:'#fff',fontWeight:500 }}>{val}</span>
+                </div>
+              ))}
+              {!isPro && <button style={{ ...S.upgradeBtn, marginTop:16 }} onClick={() => setShowPaywall(true)}>⚡ Upgrade to Pro</button>}
+            </div>
+
+            <div style={S.card}>
+              <h2 style={S.cardTitle}>Need help?</h2>
+              <p style={{ fontSize:13,color:'#888',marginBottom:12,lineHeight:1.6 }}>
+                To change your email, password, or cancel your subscription — contact us and we will sort it out within 24 hours.
+              </p>
+              <a href="mailto:naijabuzz2026@gmail.com" style={S.supportBtn}>✉️ Email support</a>
+              <a href="/support" style={{ ...S.supportBtn, background:'#1a1a1a', marginTop:8 }}>❓ View FAQs</a>
+            </div>
+
+            <div style={S.card}>
+              <h2 style={S.cardTitle}>Legal</h2>
+              <div style={{ display:'flex', flexDirection:'column', gap:4 }}>
+                {[['About ContentAI','/about'],['Privacy Policy','/privacy'],['Terms of Service','/terms'],['Support and FAQs','/support']].map(([label, href]) => (
+                  <a key={href} href={href} style={S.legalLink}>{label} →</a>
+                ))}
               </div>
-            ))}
-            {!isPro && <button style={{ ...S.upgradeBtn, marginTop:16 }} onClick={() => setShowPaywall(true)}>⚡ Upgrade to Pro</button>}
+            </div>
           </div>
         )}
       </main>
@@ -207,4 +227,6 @@ const S = {
   histItem: { background:'#1a1a1a',border:'1px solid #2a2a2a',borderRadius:10,padding:14,display:'flex',flexDirection:'column',gap:4,marginBottom:8 },
   reuseBtn: { alignSelf:'flex-start',background:'none',border:'1px solid #333',borderRadius:6,color:'#888',fontSize:12,padding:'4px 10px',cursor:'pointer',fontFamily:"'DM Sans',sans-serif",marginTop:4 },
   settingRow: { display:'flex',justifyContent:'space-between',padding:'12px 0',borderBottom:'1px solid #1e1e1e' },
+  supportBtn: { display:'block',padding:'10px 14px',background:'#A78BFA',color:'#fff',borderRadius:8,fontSize:13,fontWeight:600,textDecoration:'none',textAlign:'center' },
+  legalLink: { fontSize:13,color:'#888',textDecoration:'none',padding:'8px 0',borderBottom:'1px solid #1e1e1e',display:'block' },
 }
