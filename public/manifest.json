@@ -1,0 +1,14 @@
+{
+  "name": "ContentAI",
+  "short_name": "ContentAI",
+  "description": "AI Content Generator for Nigerian Businesses",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#11190F",
+  "theme_color": "#FF6B35",
+  "orientation": "portrait",
+  "icons": [
+    { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable" },
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ]
+}
