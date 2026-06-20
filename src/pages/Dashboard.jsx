@@ -54,7 +54,7 @@ export default function Dashboard() {
     </div>
   )
 
-  const navItems = [['generator','Generator'],['history','History'],['settings','Settings']]
+  const navItems = [['generator','✦','Generator'],['images','🎨','Images'],['history','◷','History'],['settings','⚙','Settings']]
 
   return (
     <>
@@ -95,9 +95,9 @@ export default function Dashboard() {
             </div>
 
             <nav style={{display:'flex',flexDirection:'column',gap:3}}>
-              {navItems.map(([id,label], i) => (
+              {navItems.map(([id,icon,label]) => (
                 <button key={id} className="nav-btn" onClick={() => setTab(id)} style={{display:'flex',alignItems:'center',gap:10,padding:'10px 12px',borderRadius:6,fontSize:14,color:tab===id?'#FAF6ED':'#9AAB9C',cursor:'pointer',background:tab===id?'#1A2B1F':'none',border:'none',borderLeft:tab===id?'2px solid #FF6B35':'2px solid transparent',fontFamily:"'Inter',sans-serif",textAlign:'left',width:'100%',fontWeight:tab===id?600:400}}>
-                  <span style={{fontFamily:"'Space Grotesk',sans-serif",fontSize:11,fontWeight:700,color:tab===id?'#FF6B35':'#6B8070',width:16}}>{String(i+1).padStart(2,'0')}</span>
+                  <span style={{fontSize:16,color:tab===id?'#FF6B35':'#6B8070',width:18,textAlign:'center'}}>{icon}</span>
                   {label}
                 </button>
               ))}
@@ -140,9 +140,10 @@ export default function Dashboard() {
         </div>
 
         <div className="mobile-nav" style={{display:'none',position:'fixed',bottom:0,left:0,right:0,height:58,background:'#0E1B14',borderTop:'1px solid #24372A',zIndex:100,alignItems:'center',justifyContent:'space-around'}}>
-          {navItems.map(([id,label]) => (
+          {navItems.map(([id,icon,label]) => (
             <button key={id} onClick={()=>setTab(id)} style={{display:'flex',flexDirection:'column',alignItems:'center',gap:4,background:'none',border:'none',cursor:'pointer',color:tab===id?'#FF6B35':'#6B8070',flex:1,padding:'8px 0'}}>
-              <span style={{fontSize:11,fontWeight:tab===id?700:500}}>{label}</span>
+              <span style={{fontSize:18}}>{icon}</span>
+              <span style={{fontSize:10,fontWeight:tab===id?700:500}}>{label}</span>
               {tab===id && <div style={{width:16,height:2,background:'#FF6B35'}} />}
             </button>
           ))}
@@ -221,6 +222,31 @@ export default function Dashboard() {
               </div>
             )}
 
+            {tab === 'images' && (
+              <div style={{display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center',minHeight:380,gap:20,textAlign:'center',padding:'2rem'}}>
+                <div style={{fontSize:56}}>🎨</div>
+                <div style={{background:'#142016',border:'1px solid #24372A',borderLeft:'3px solid #FF6B35',borderRadius:10,padding:'2rem',maxWidth:440}}>
+                  <div style={{display:'inline-flex',alignItems:'center',gap:6,background:'#FF6B35',color:'#0B1410',fontSize:11,fontWeight:700,padding:'4px 12px',borderRadius:4,marginBottom:16,letterSpacing:'0.5px',textTransform:'uppercase'}}>
+                    Coming Soon
+                  </div>
+                  <h2 style={{fontSize:21,fontWeight:700,color:'#FAF6ED',letterSpacing:'-0.4px',marginBottom:10,fontFamily:"'Space Grotesk',sans-serif"}}>AI Image Generation</h2>
+                  <p style={{fontSize:14,color:'#9AAB9C',lineHeight:1.7,marginBottom:16}}>
+                    Generate product photos, social graphics, flyers and more for your Nigerian business — all powered by AI.
+                  </p>
+                  <div style={{display:'flex',flexDirection:'column',gap:8,marginBottom:16}}>
+                    {['Product photos','Social media graphics','Promotional flyers','Fashion photography'].map(f => (
+                      <div key={f} style={{display:'flex',alignItems:'center',gap:10,background:'#16241A',borderRadius:6,padding:'8px 12px',fontSize:13,color:'#C5D0C7'}}>
+                        <span style={{color:'#FF6B35',fontWeight:700}}>✓</span> {f}
+                      </div>
+                    ))}
+                  </div>
+                  <p style={{fontSize:12,color:'#6B8070',lineHeight:1.6}}>
+                    Pro subscribers get unlimited image generation when this launches.
+                  </p>
+                </div>
+              </div>
+            )}
+
             {tab === 'history' && (
               <div style={{display:'flex',flexDirection:'column',gap:'1.5rem'}}>
                 <div>
@@ -236,7 +262,7 @@ export default function Dashboard() {
                 ):(
                   <div className="history-grid" style={{display:'grid',gridTemplateColumns:'repeat(auto-fill,minmax(300px,1fr))',gap:12}}>
                     {history.map(item=>(
-                      <div key={item.id} className="hist-card" style={{background:'#142016',border:'1px solid #24372A',borderRadius:8,padding:'1.25rem',display:'flex',flexDirection:'column',gap:8}}>
+                      <div key={item.id} className="hist-card" style={{background:'#142016',border:'1px solid #24372A',borderRadius:10,padding:'1.25rem',boxShadow:'0 2px 8px rgba(0,0,0,0.2)',display:'flex',flexDirection:'column',gap:8}}>
                         <div style={{display:'flex',justifyContent:'space-between',alignItems:'center'}}>
                           <span style={{fontSize:11,color:'#FF6B35',fontWeight:700}}>{CONTENT_TYPES.find(t=>t.value===item.type)?.icon} {CONTENT_TYPES.find(t=>t.value===item.type)?.label}</span>
                           <span style={{fontSize:11,color:'#6B8070'}}>{new Date(item.created_at).toLocaleDateString('en-NG',{day:'numeric',month:'short'})}</span>
@@ -258,7 +284,7 @@ export default function Dashboard() {
                   <p style={{fontSize:13,color:'#9AAB9C'}}>Manage your account and subscription</p>
                 </div>
                 <div style={{display:'flex',flexDirection:'column',gap:14}}>
-                  <div style={{background:'#142016',border:'1px solid #24372A',borderRadius:8,padding:'1.25rem'}}>
+                  <div style={{background:'#142016',border:'1px solid #24372A',borderRadius:10,padding:'1.25rem',boxShadow:'0 2px 8px rgba(0,0,0,0.2)'}}>
                     <div style={{fontSize:12,fontWeight:700,color:'#FAF6ED',marginBottom:14,paddingBottom:10,borderBottom:'1px solid #24372A',textTransform:'uppercase',letterSpacing:'0.5px'}}>Account</div>
                     {[['Email',user?.email],['Plan',isPro?'Pro':'Free'],['Credits',isPro?'Unlimited':`${credits} remaining`]].map(([l,v])=>(
                       <div key={l} style={{display:'flex',justifyContent:'space-between',alignItems:'center',padding:'10px 0',borderBottom:'1px solid #16241A'}}>
@@ -269,14 +295,14 @@ export default function Dashboard() {
                     {!isPro&&<button onClick={()=>setShowPaywall(true)} style={{width:'100%',padding:'11px',background:'#FF6B35',color:'#0B1410',border:'none',borderRadius:6,fontSize:13,fontWeight:700,cursor:'pointer',fontFamily:"'Inter',sans-serif",marginTop:14}}>Upgrade to Pro</button>}
                   </div>
 
-                  <div style={{background:'#142016',border:'1px solid #24372A',borderRadius:8,padding:'1.25rem'}}>
+                  <div style={{background:'#142016',border:'1px solid #24372A',borderRadius:10,padding:'1.25rem',boxShadow:'0 2px 8px rgba(0,0,0,0.2)'}}>
                     <div style={{fontSize:12,fontWeight:700,color:'#FAF6ED',marginBottom:14,paddingBottom:10,borderBottom:'1px solid #24372A',textTransform:'uppercase',letterSpacing:'0.5px'}}>Need help?</div>
                     <p style={{fontSize:13,color:'#9AAB9C',lineHeight:1.6,marginBottom:12}}>To change your email, password or cancel — contact us and we will sort it within 24 hours.</p>
                     <a href="mailto:naijabuzz2026@gmail.com" style={{display:'block',padding:'11px',background:'#FF6B35',color:'#0B1410',borderRadius:6,fontSize:13,fontWeight:700,textDecoration:'none',textAlign:'center',marginBottom:8}}>Email support</a>
                     <a href="/support" style={{display:'block',padding:'11px',background:'none',border:'1px solid #2E4A38',color:'#FF6B35',borderRadius:6,fontSize:13,fontWeight:600,textDecoration:'none',textAlign:'center'}}>FAQs & Help</a>
                   </div>
 
-                  <div style={{background:'#142016',border:'1px solid #24372A',borderRadius:8,padding:'1.25rem'}}>
+                  <div style={{background:'#142016',border:'1px solid #24372A',borderRadius:10,padding:'1.25rem',boxShadow:'0 2px 8px rgba(0,0,0,0.2)'}}>
                     <div style={{fontSize:12,fontWeight:700,color:'#FAF6ED',marginBottom:14,paddingBottom:10,borderBottom:'1px solid #24372A',textTransform:'uppercase',letterSpacing:'0.5px'}}>Legal</div>
                     {[['About ContentAI','/about'],['Privacy Policy','/privacy'],['Terms of Service','/terms'],['Support & FAQs','/support']].map(([l,h])=>(
                       <a key={h} href={h} style={{display:'flex',justifyContent:'space-between',fontSize:14,color:'#C5D0C7',textDecoration:'none',padding:'10px 0',borderBottom:'1px solid #16241A'}}>{l}<span style={{color:'#FF6B35'}}>→</span></a>
